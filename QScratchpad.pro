@@ -13,8 +13,12 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    scratchpadedit.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    scratchpadedit.h
 
 FORMS    += mainwindow.ui
+
+CONFIG += c++11
