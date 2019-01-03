@@ -8,11 +8,17 @@ ScratchpadEdit::ScratchpadEdit(QWidget *parent) : QPlainTextEdit(parent)
     auto fn = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
     backupFile.setFileName(fn + "/scratchpad-backup.txt");
     backupFile.open(QFile::Append);
+    QFile f(fn + "/scratchpad.txt");
+    f.open(QFile::ReadOnly);
+    setPlainText(QString::fromUtf8(f.readAll()));
 }
 
 ScratchpadEdit::~ScratchpadEdit()
 {
-    backup(toPlainText());
+    auto fn = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
+    QFile f(fn + "/scratchpad.txt");
+    f.open(QFile::WriteOnly);
+    f.write(toPlainText().toUtf8());
 }
 
 void ScratchpadEdit::backup(const QString &_text)
